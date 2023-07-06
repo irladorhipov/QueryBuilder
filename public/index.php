@@ -48,6 +48,5 @@ $updateUser = $queryBuiler->update('users')
                           
 $deleteUser = $queryBuiler
                 ->from('users')
-                ->where('age', '=', 18)
+                ->where([['column' => 'age', 'operator' => '=', 'value' => age]])
                 ->execute();
-
