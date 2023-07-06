@@ -8,7 +8,7 @@ interface QueryBuilderInterface
 
     public function from(string $tableName): QueryBuilderInterface;
 
-    public function where(string $column, string $operator, $value):QueryBuilderInterface;
+    public function where(array $conditions):QueryBuilderInterface;
 
     public function OrderBy(string $column, $attr = ''): QueryBuilderInterface;
 

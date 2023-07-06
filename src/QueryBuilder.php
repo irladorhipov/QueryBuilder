@@ -41,12 +41,22 @@ class QueryBuilder implements QueryBuilderInterface
         }
     }
  
-    public function where(string $column, string $operator, $value):QueryBuilderInterface
+   public function where(array $conditions): QueryBuilderInterface
     {
         if ($this->checkStartMethod()) {
-            $this->sql .= " WHERE $column $operator " . QueryBuilderHelpers::formatValue($value);
-            return $this;
+            $conditionsSql = [];
+            
+            foreach ($conditions as $condition) {
+                $column = $condition['column'];
+                $operator = $condition['operator'];
+                $value = $condition['value'];
+                $conditionsSql[] = "$column $operator " . QueryBuilderHelpers::formatValue($value);
+            }
+            
+            $this->sql .= " WHERE " . implode(" AND ", $conditionsSql);
         }
+        
+        return $this;
     }
 
     public function OrderBy(string $column, $attr = ''): QueryBuilderInterface {

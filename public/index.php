@@ -16,7 +16,10 @@ $queryBuiler = new QueryBuilder($config);
 
 $queryBuiler->select(['*'])
             ->from('users')
-            ->where('age', '=', 19);
+            ->where([
+                ['column' => 'age', 'operator' => '=', 'value' => 17],
+                ['column' => 'name', 'operator' => '=', 'value' => 'vlad1']
+            ]);
 
 $users = $queryBuiler->execute();
 
@@ -40,10 +43,11 @@ $createUser = $queryBuiler->insert('users', $userData)
 
 $updateUser = $queryBuiler->update('users')
                           ->set('name', 'vlad')
-                          ->where('name', '=', 'vladislav')
+                          ->where([['column' => 'age', 'operator' => '=', 'value' => 19]])
                           ->execute();
                           
 $deleteUser = $queryBuiler
                 ->from('users')
                 ->where('age', '=', 18)
                 ->execute();
+
